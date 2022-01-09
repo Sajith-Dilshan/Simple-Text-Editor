@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -111,13 +112,23 @@ public class TextEditorFormController {
         }
     }
 
+    private String cutandcopy;
     public void mnuitemCut_OnAction(ActionEvent actionEvent) {
+        byte[] bytes = txtArea.getSelectedText().getBytes(StandardCharsets.UTF_8);
+        cutandcopy = new String(bytes);
+        int caretPosition = txtArea.getCaretPosition();
+        txtArea.setText(txtArea.getText().replace(txtArea.getSelectedText(),""));
+        txtArea.positionCaret(caretPosition);
     }
 
     public void mnuitemCopy_OnAction(ActionEvent actionEvent) {
+        byte[] bytes = txtArea.getSelectedText().getBytes(StandardCharsets.UTF_8);
+        cutandcopy = new String(bytes);
     }
 
     public void mnuitemPaste_OnAction(ActionEvent actionEvent) {
+        int caretPosition = txtArea.getCaretPosition();
+        txtArea.insertText(caretPosition,cutandcopy);
     }
 
     public void mnuitemselectAll_OnAction(ActionEvent actionEvent) {
@@ -163,13 +174,16 @@ public class TextEditorFormController {
         mnuitemSave_OnAction(new ActionEvent());
     }
 
-    public void btnsave_OnAction(ActionEvent actionEvent) {
+    public void btnCut_OnAction(ActionEvent actionEvent) {
+        mnuitemCut_OnAction(new ActionEvent());
     }
 
     public void btnCopy_OnAction(ActionEvent actionEvent) {
+        mnuitemCopy_OnAction(new ActionEvent());
     }
 
     public void btnPaste_OnAction(ActionEvent actionEvent) {
+        mnuitemPaste_OnAction(new ActionEvent());
     }
 
     public void btnRegExp_OnAction(ActionEvent actionEvent) {
@@ -228,4 +242,6 @@ public class TextEditorFormController {
 
     public void btnReplaceAll_OnAction(ActionEvent actionEvent) {
     }
+
+
 }

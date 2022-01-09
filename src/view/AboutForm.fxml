@@ -18,7 +18,7 @@
             <Image url="@../Assets/icon.png" />
          </image>
       </ImageView>
-      <Label layoutX="198.0" layoutY="208.0" text="Version 0.0.2">
+      <Label layoutX="198.0" layoutY="208.0" text="Version 0.0.3">
          <font>
             <Font size="16.0" />
          </font>
