@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -112,23 +114,40 @@ public class TextEditorFormController {
         }
     }
 
-    private String cutandcopy;
+    
     public void mnuitemCut_OnAction(ActionEvent actionEvent) {
-        byte[] bytes = txtArea.getSelectedText().getBytes(StandardCharsets.UTF_8);
-        cutandcopy = new String(bytes);
-        int caretPosition = txtArea.getCaretPosition();
-        txtArea.setText(txtArea.getText().replace(txtArea.getSelectedText(),""));
-        txtArea.positionCaret(caretPosition);
+        if(txtArea.getSelectedText()!=null){
+            Clipboard systemClipboard = Clipboard.getSystemClipboard();
+            ClipboardContent clipboardContent = new ClipboardContent();
+            clipboardContent.putString(txtArea.getSelectedText());
+            systemClipboard.setContent(clipboardContent);
+            txtArea.setText(txtArea.getText().replaceAll(clipboardContent.getString(),""));
+            txtArea.deselect();
+        }
     }
 
     public void mnuitemCopy_OnAction(ActionEvent actionEvent) {
-        byte[] bytes = txtArea.getSelectedText().getBytes(StandardCharsets.UTF_8);
-        cutandcopy = new String(bytes);
+
+        if(txtArea.getSelectedText()!=null){
+            Clipboard systemClipboard = Clipboard.getSystemClipboard();
+            ClipboardContent clipboardContent = new ClipboardContent();
+            clipboardContent.putString(txtArea.getSelectedText());
+            systemClipboard.setContent(clipboardContent);
+            txtArea.deselect();
+        }
     }
 
     public void mnuitemPaste_OnAction(ActionEvent actionEvent) {
-        int caretPosition = txtArea.getCaretPosition();
-        txtArea.insertText(caretPosition,cutandcopy);
+
+        Clipboard pasteClip=Clipboard.getSystemClipboard();
+        if(txtArea.getSelectedText().isEmpty()){
+            int caretPosition = txtArea.getCaretPosition();
+            txtArea.insertText(caretPosition,pasteClip.getString());
+        } else{
+            txtArea.setText(txtArea.getText().replace(txtArea.getSelectedText(),pasteClip.getString()));
+        }
+
+
     }
 
     public void mnuitemselectAll_OnAction(ActionEvent actionEvent) {
