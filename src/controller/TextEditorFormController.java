@@ -27,14 +27,28 @@ public class TextEditorFormController {
     public Button btndown;
     public Button btnUp;
 
+    public Label lblAllWord;
+
 
     private Matcher matcher;
     private boolean textChanged;
 
 
     public void initialize() {
+
         setDisableFindGroup(false);
         txtFind.textProperty().addListener((observable, oldValue, newValue) -> textChanged = true);
+
+
+        txtArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            Stage stage =(Stage) txtArea.getScene().getWindow();
+            if (stage.getTitle().charAt(0)!='*'){
+                stage.setTitle("*"+stage.getTitle());
+            }
+            wordCount();
+           
+
+        });
     }
 
     private void setDisableFindGroup(boolean value){
@@ -114,7 +128,7 @@ public class TextEditorFormController {
         }
     }
 
-    
+
     public void mnuitemCut_OnAction(ActionEvent actionEvent) {
         if(txtArea.getSelectedText()!=null){
             Clipboard systemClipboard = Clipboard.getSystemClipboard();
@@ -233,6 +247,11 @@ public class TextEditorFormController {
             matcher.reset();
         }
 
+
+        //------------------------
+
+        //-------------
+
     }
 
     public void btnDown_OnAction(ActionEvent actionEvent) {
@@ -257,10 +276,20 @@ public class TextEditorFormController {
     }
 
     public void btnReplace_OnAction(ActionEvent actionEvent) {
+
+
     }
 
     public void btnReplaceAll_OnAction(ActionEvent actionEvent) {
+
     }
 
-
+    private void wordCount() {
+        int count=0;
+        Matcher matcher = Pattern.compile("\\S+").matcher(txtArea.getText());
+        while(matcher.find()){
+            count++;
+        }
+        lblAllWord.setText(String.valueOf(count));
+    }
 }
