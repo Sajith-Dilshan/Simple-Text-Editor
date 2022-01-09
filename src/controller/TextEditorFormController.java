@@ -46,7 +46,7 @@ public class TextEditorFormController {
                 stage.setTitle("*"+stage.getTitle());
             }
             wordCount();
-           
+
 
         });
     }
