@@ -85,10 +85,10 @@
       <AnchorPane layoutY="70.0" prefHeight="72.0" prefWidth="688.0">
          <children>
             <TextField fx:id="txtFind" layoutX="22.0" layoutY="14.0" prefHeight="26.0" prefWidth="221.0" promptText="Enter find text.." AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="14.0" />
-            <ToggleButton layoutX="22.0" layoutY="45.0" mnemonicParsing="false" onAction="#btnRegExp_OnAction" prefHeight="26.0" prefWidth="82.0" text="RegExp" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="45.0" />
-            <ToggleButton layoutX="118.0" layoutY="45.0" mnemonicParsing="false" onAction="#btnCaseSensitive_OnAction" prefHeight="26.0" prefWidth="125.0" text="Case Sensitive" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="45.0" />
-            <Button contentDisplay="GRAPHIC_ONLY" layoutX="255.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnUp_OnAction" text="Button" AnchorPane.leftAnchor="255.0" />
-            <Button contentDisplay="GRAPHIC_ONLY" layoutX="255.0" layoutY="45.0" mnemonicParsing="false" onAction="#btnDown_OnAction" text="Button" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="255.0" AnchorPane.topAnchor="45.0" />
+            <ToggleButton fx:id="btnRegExp" layoutX="22.0" layoutY="45.0" mnemonicParsing="false" onAction="#btnRegExp_OnAction" prefHeight="26.0" prefWidth="82.0" text="RegExp" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="45.0" />
+            <ToggleButton fx:id="btnCaseSensitive" layoutX="118.0" layoutY="45.0" mnemonicParsing="false" onAction="#btnCaseSensitive_OnAction" prefHeight="26.0" prefWidth="125.0" text="Case Sensitive" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="45.0" />
+            <Button fx:id="btnUp" contentDisplay="GRAPHIC_ONLY" layoutX="255.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnUp_OnAction" text="Button" AnchorPane.leftAnchor="255.0" />
+            <Button fx:id="btndown" contentDisplay="GRAPHIC_ONLY" layoutX="255.0" layoutY="45.0" mnemonicParsing="false" onAction="#btnDown_OnAction" text="Button" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="255.0" AnchorPane.topAnchor="45.0" />
             <TextField fx:id="txtReplace" layoutX="454.0" layoutY="14.0" prefHeight="26.0" prefWidth="207.0" promptText="Enter replace text.." AnchorPane.rightAnchor="27.0" />
             <Button layoutX="457.0" layoutY="45.0" mnemonicParsing="false" onAction="#btnReplace_OnAction" text="Replace" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="39.0" />
             <Button layoutX="454.0" layoutY="46.0" mnemonicParsing="false" onAction="#btnReplaceAll_OnAction" text="Replace All" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="143.0" AnchorPane.topAnchor="45.0" />

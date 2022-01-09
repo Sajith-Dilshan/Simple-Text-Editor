@@ -4,20 +4,45 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TextEditorFormController {
     public TextField txtFind;
     public TextField txtReplace;
     public TextArea txtArea;
+    public ToggleButton btnRegExp;
+    public ToggleButton btnCaseSensitive;
+    public Button btndown;
+    public Button btnUp;
+
+
+    private Matcher matcher;
+    private boolean textChanged;
+
+
+    public void initialize() {
+        setDisableFindGroup(false);
+        txtFind.textProperty().addListener((observable, oldValue, newValue) -> textChanged = true);
+    }
+
+    private void setDisableFindGroup(boolean value){
+        txtFind.setVisible(value);
+        btnRegExp.setVisible(value);
+        btnCaseSensitive.setVisible(value);
+        btnUp.setVisible(value);
+        btndown.setVisible(value);
+    }
+
+
 
     public void mnuitemNew_OnAction(ActionEvent actionEvent) {
         txtArea.clear();
@@ -47,13 +72,9 @@ public class TextEditorFormController {
                     txtArea.appendText(line + '\n');
                 }
 
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
-
     }
 
 
@@ -100,9 +121,13 @@ public class TextEditorFormController {
     }
 
     public void mnuitemselectAll_OnAction(ActionEvent actionEvent) {
+        txtArea.selectAll();
     }
 
     public void mnuitemFind_OnAction(ActionEvent actionEvent) {
+
+        setDisableFindGroup(true);
+        txtFind.requestFocus();
     }
 
     public void mnuitemReplace_OnAction(ActionEvent actionEvent) {
@@ -148,15 +173,54 @@ public class TextEditorFormController {
     }
 
     public void btnRegExp_OnAction(ActionEvent actionEvent) {
+        textChanged = true;
+        btnUp.fire();
     }
 
     public void btnCaseSensitive_OnAction(ActionEvent actionEvent) {
+        textChanged = true;
+        btndown.fire();
     }
 
     public void btnUp_OnAction(ActionEvent actionEvent) {
+        txtArea.deselect();
+        if (textChanged) {
+            int flags = 0;
+            if (!btnRegExp.isSelected()) flags = flags | Pattern.LITERAL;
+            if (!btnCaseSensitive.isSelected()) flags = flags | Pattern.CASE_INSENSITIVE;
+
+            matcher = Pattern.compile(txtFind.getText(), flags)
+                    .matcher(txtArea.getText());
+            textChanged = false;
+        }
+
+        if (matcher.find()) {
+            txtArea.selectRange(matcher.start(), matcher.end());
+        } else {
+            matcher.reset();
+        }
+
     }
 
     public void btnDown_OnAction(ActionEvent actionEvent) {
+        txtArea.deselect();
+        if (textChanged) {
+            int flags = 0;
+            if (!btnRegExp.isSelected()) flags = flags | Pattern.LITERAL;
+            if (!btnCaseSensitive.isSelected()) flags = flags | Pattern.CASE_INSENSITIVE;
+
+            matcher = Pattern.compile(txtFind.getText(), flags)
+                    .matcher(txtArea.getText());
+            textChanged = false;
+        }
+
+        if (matcher.find()) {
+            txtArea.selectRange(matcher.start(), matcher.end());
+        } else {
+            matcher.reset();
+        }
+
+
     }
 
     public void btnReplace_OnAction(ActionEvent actionEvent) {

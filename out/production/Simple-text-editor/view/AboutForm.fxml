@@ -16,7 +16,7 @@
       </Label>
       <ImageView fitHeight="98.0" fitWidth="145.0" layoutX="192.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Assets/icon1.png" />
+            <Image url="@../Assets/icon.png" />
          </image>
       </ImageView>
       <Label layoutX="220.0" layoutY="214.0" text="Version 0.0.1">
