@@ -276,12 +276,11 @@ public class TextEditorFormController {
     }
 
     public void btnReplace_OnAction(ActionEvent actionEvent) {
-
-
+        txtArea.replaceSelection(txtArea.getText().replace(txtFind.getText(),txtReplace.getText()));
     }
 
     public void btnReplaceAll_OnAction(ActionEvent actionEvent) {
-
+        txtArea.setText(txtArea.getText().replaceAll(txtFind.getText(),txtReplace.getText()));
     }
 
     private void wordCount() {
