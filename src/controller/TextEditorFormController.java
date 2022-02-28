@@ -28,15 +28,19 @@ public class TextEditorFormController {
     public Button btnUp;
 
     public Label lblAllWord;
+    public Button btnReplace;
+    public Button btnReplaceAll;
+    public Label lblFindCount;
 
 
+    boolean txtChanged=false;
     private Matcher matcher;
     private boolean textChanged;
 
 
     public void initialize() {
 
-        setDisableFindGroup(false);
+
         txtFind.textProperty().addListener((observable, oldValue, newValue) -> textChanged = true);
 
 
@@ -45,18 +49,10 @@ public class TextEditorFormController {
             if (stage.getTitle().charAt(0)!='*'){
                 stage.setTitle("*"+stage.getTitle());
             }
-            wordCount();
-
-
         });
-    }
 
-    private void setDisableFindGroup(boolean value){
-        txtFind.setVisible(value);
-        btnRegExp.setVisible(value);
-        btnCaseSensitive.setVisible(value);
-        btnUp.setVisible(value);
-        btndown.setVisible(value);
+        wordCount();
+
     }
 
 
@@ -113,9 +109,6 @@ public class TextEditorFormController {
 
 
 
-
-
-
     public void mnuitemPrint_OnAction(ActionEvent actionEvent) {
     }
 
@@ -166,18 +159,6 @@ public class TextEditorFormController {
 
     public void mnuitemselectAll_OnAction(ActionEvent actionEvent) {
         txtArea.selectAll();
-    }
-
-    public void mnuitemFind_OnAction(ActionEvent actionEvent) {
-
-        setDisableFindGroup(true);
-        txtFind.requestFocus();
-    }
-
-    public void mnuitemReplace_OnAction(ActionEvent actionEvent) {
-    }
-
-    public void mnuitemReplaceAll_OnAction(ActionEvent actionEvent) {
     }
 
     public void mnuitemAbout_OnAction(ActionEvent actionEvent) throws IOException {
@@ -291,4 +272,6 @@ public class TextEditorFormController {
         }
         lblAllWord.setText(String.valueOf(count));
     }
+
+
 }
